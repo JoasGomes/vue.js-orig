@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="app">
+    {{instrumento}}
+    {{nomeProduto}}
+  </div>
+
+
+  <script>
+    function VueClone(options) {
+      this.options = options;
+      this.el = document.querySelector(options.el);
+      this.data =options.data;
+    }
+
+    const vmClone = new VueClone({
+      el: "#app",
+      data: {
+        nome: 'martelo',
+      },
+    })
+    console.log(vmClone);
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        instrumento: "guitarra",
+        cor: 'vermelho',
+      },
+      computed: {
+        nomeProduto() {
+          setTimeout(() => {
+            console.log('this do settimeout:', this.instrumento)
+          }, 1000)
+          return this.instrumento +' '+ this.cor;
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>
