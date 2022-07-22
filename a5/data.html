@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{cor}}
+    {{logado}}
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        titulo: "vue.js Completo",
+        $preco: 59,
+        cor: "vermelho",
+        logado: "",
+      }
+    })
+
+    setTimeout(() => {
+      vm.logado = "Sim";
+    }, 1000)
+
+    console.log(vm.$data.titulo) //vue.js Completo
+    console.log(vm.titulo) // vue.js Completo
+
+    console.log(vm.$data.$preco) //59
+    console.log(vm.$preco) //undefined
+
+  </script>
+</body>
+</html>
