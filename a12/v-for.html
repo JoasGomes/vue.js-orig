@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item, index in lista">{{item}} {{index}}</li>
+      <li v-for="estado, chave in estados" :key="key + nome">{{estado}} {{chave}} {{estado.populacao}}</li>
+      <div v-for="n in 10">
+        {{n}}
+      </div>
+    </ul>
+    <button @click="removerItem">remover item</button>
+    <button @click="adicionarItem">adicionar item</button>
+    <button @click="modificarItem">modificar item</button>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        lista: ['banana', 'morango', 'maçã', 'pera'],
+        estados: {
+          sp: {
+            populacao: '45 milhões',
+            nome: 'sao paulo',
+          },
+          mg: {
+            populacao: '45 milhões',
+            nome: 'minas gerais',
+          },
+          rj: {
+            populacao: '45 milhões',
+            nome: 'rio de janeiro',
+          }
+        }
+      },
+      methods: {
+        removerItem() {
+          this.lista.pop();
+        },
+        adicionarItem() {
+          this.lista.push('novo item')
+        },
+        modificarItem() {
+          this.$set(this.lista, 0, 'MODIFICADO')
+        }
+      }
+    })
+  </script>
+</body>
+</html>
