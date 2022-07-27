@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="contador++">adicionar</button>
+    {{contador}}
+
+    <p>{{mensagem}}</p>
+
+    <div>
+      {{github}}
+    </div>
+    <button @click="puxarGithub">puxar dados</button>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        contador: 0,
+        mensagem: 'essa é uma mensagem',
+        github: {}
+      },
+      methods: {
+        puxarGithub() {
+          fetch('https://api.github.com/users/origamid')
+          .then(r => r.json())
+          .then(r => {
+            this.github = r;
+          })
+        }
+      },
+      beforeCreate() {
+        console.log(this.mensagem);
+      },
+      created() {
+        this.puxarGithub();
+        console.log(this.mensagem);
+        console.log('elemento:', this.$el);
+      },
+      beforeMount() {
+        console.log('beforeMount:', this.mensagem);
+        console.log('elemento:', this.$el);
+      },
+      mounted() {
+        console.log('elemento:', this.$el);
+      },
+      beforeUpdate() {
+        console.log('teste')
+      },
+      updated() {
+        console.log('teste update')
+      }
+    })
+  </script>
+</body>
+</html>
