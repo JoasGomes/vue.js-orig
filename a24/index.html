@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <formulario-acoes></formulario-acoes>
+  </div>
+
+  <script type="module">
+    const DadosAcao = {
+      name: "DadosAcao",
+      props: ["acao"],
+      template: `
+        <ul>
+          <li v-for="(dado, chave) in acao">
+            {{chave}}: {{dado}}  
+          </li>
+        </ul>
+      `
+    }
+
+    const FormularioAcoes = {
+      name: "FormularioAcoes",
+      components: {
+        DadosAcao,
+      },
+      data() {
+        return {
+          simbolo: "",
+          acao: {},
+        }
+      },
+      template: `
+        <div>
+          <input type="text" v-model="simbolo"/>
+          <button @click="puxarAcao">Puxar Ações</button>
+          <dados-acao :acao="acao"></dados-acao>
+          {{acao}}
+        </div>
+      `,
+      methods: {
+        puxarAcao() {
+          fetch(`https://api.iextrading.com/1.0/stock/${this.simbolo}/quote`)
+          .then(r => r.json())
+          .then(r => {
+            this.acao = r;
+          })
+        }
+      }
+    }
+
+    const vm =  new Vue({
+      el: "#app",
+      components: {
+        FormularioAcoes,
+      }
+    })
+
+  </script>
+</body>
+</html>
